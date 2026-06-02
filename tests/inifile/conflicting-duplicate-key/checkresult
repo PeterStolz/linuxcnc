@@ -1,0 +1,13 @@
+#!/bin/sh
+# PASS (exit 0) only when [TRAJ]MAX_LINEAR_VELOCITY has NO conflicting duplicate
+# -- i.e. when the Sherline INI has been de-duplicated.  While the duplicate
+# exists a second occurrence is present and this test FAILS (it is 'xfail').
+cd "$(dirname "$1")" || exit 1
+INI=../../../configs/by_machine/sherline/Sherline4Axis/Sherline4Axis_inch.ini
+second=$(inivar -ini "$INI" -sec TRAJ -var MAX_LINEAR_VELOCITY -num 2 2>/dev/null)
+if [ -n "$second" ]; then
+    echo "BUG reproduced: [TRAJ]MAX_LINEAR_VELOCITY is duplicated; the second value" \
+         "'$second' is silently ignored (LinuxCNC keeps the first occurrence)"
+    exit 1
+fi
+exit 0

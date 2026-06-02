@@ -1,0 +1,12 @@
+( Minimal reproduction of the bug in nc_files/nestedcall.ngc line 11.      )
+( An O-word subroutine must be invoked with the keyword 'call'.  This file  )
+( instead uses 'callsub' (a typo).  The RS274NGC reader matches o-word       )
+( commands by prefix, so 'callsub' prefix-matches 'call', the reader         )
+( advances past 'call', and then rejects the leftover 'sub' with the error   )
+( "Unexpected character after O-word" -- so the subroutine never runs.       )
+( Fix: change 'callsub' to 'call' (here and in nc_files/nestedcall.ngc:11).  )
+o<mysub> sub
+  (subroutine was entered)
+o<mysub> endsub
+o<mysub> callsub
+m2

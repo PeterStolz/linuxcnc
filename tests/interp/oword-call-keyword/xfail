@@ -1,0 +1,2 @@
+# Expected failure: nc_files/nestedcall.ngc:11 uses the invalid O-word keyword
+# 'callsub' (should be 'call').  Remove this marker once it is fixed.

@@ -1,0 +1,3 @@
+# Expected failure: stepconf build_HAL.py connect_output hard-codes
+# "parport.0" for the doublestep step-reset instead of using the port
+# variable. Remove this marker once connect_output is fixed.

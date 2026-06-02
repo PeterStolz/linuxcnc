@@ -1,0 +1,16 @@
+#!/bin/bash
+# PASS (exit 0) only when the subroutine actually runs -- i.e. when the typo
+# 'callsub' has been corrected to 'call'.  While the typo is present the
+# interpreter aborts with "Unexpected character after O-word" and the body
+# never executes, so this test FAILS.  It is therefore marked 'xfail'; once the
+# keyword is fixed it will XPASS, signalling that the xfail marker can go.
+result="$1"
+if grep -q "Unexpected character after O-word" "$result"; then
+    echo "BUG reproduced: O-word call keyword 'callsub' is rejected (must be 'call')"
+    exit 1
+fi
+if grep -q "subroutine was entered" "$result"; then
+    exit 0
+fi
+echo "subroutine did not run (unexpected interpreter output)"
+exit 1

@@ -1,0 +1,3 @@
+# Expected failure: Sherline4Axis_inch.ini defines [TRAJ]MAX_LINEAR_VELOCITY
+# twice with different values (lines 109 and 114).  Remove this marker once the
+# conflicting duplicate is removed.

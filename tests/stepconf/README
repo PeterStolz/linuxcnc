@@ -1,0 +1,19 @@
+stepconf generator tests
+=========================
+
+Non-GUI tests for the stepconf configuration wizard.
+
+stepconf is a GTK application, but its config-emitting code lives in modules
+that import only the Python standard library (build_HAL.py imports os/time/
+shutil, build_INI.py adds sys/importlib).  Those modules can therefore be
+exercised directly -- without a display or the linuxcnc runtime -- by
+constructing the generator class with small stand-ins for the wizard's data
+and private-data objects and asserting on the HAL/INI text it writes.
+
+This is useful because the wizards otherwise have no automated coverage: the
+CI test run is headless (runtests unsets DISPLAY), so nothing exercises
+stepconf or pncconf, and generator regressions ship undetected.
+
+  parport2-doublestep-reset/  - a step signal on the 2nd parallel port gets its
+                                doublestep reset emitted on parport.0 instead of
+                                parport.1 (build_HAL.py connect_output).
